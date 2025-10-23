@@ -12,11 +12,8 @@
             enctype="multipart/form-data"
         >
             @csrf
-            <h2
-                class="text-2xl font-bold mb-6 text-center text-gray-500"
-            >
-                Job Info
-            </h2>
+            {{-- Job Info --}}
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">Job Info</h2>
 
             <x-inputs.text id="title" name="title" label="Job Title" placeholder="Software Engineer" />
 
@@ -30,43 +27,23 @@
 
             <x-inputs.text id="tags" name="tags" label="Tags (comma-separated)" placeholder="development, coding, java, python" />
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="job_type"
-                    >Job Type</label
-                >
-                <select
-                    id="job_type"
-                    name="job_type"
-                    class="w-full px-4 py-2 border rounded focus:outline-none @error('job_type') border-red-500 @enderror"
-                >
-                    <option value="Full-Time" {{old('job_type') == 'Full-Time' ? 'selected' : ''}}>
-                        Full-Time
-                    </option>
-                    <option value="Part-Time" {{old('job_type') == 'Part-Time' ? 'selected' : ''}}>Part-Time</option>
-                    <option value="Contract" {{old('job_type') == 'Contract' ? 'selected' : ''}}>Contract</option>
-                    <option value="Temporary" {{old('job_type') == 'Temporary' ? 'selected' : ''}}>Temporary</option>
-                    <option value="Internship" {{old('job_type') == 'Internship' ? 'selected' : ''}}>Internship</option>
-                    <option value="Volunteer" {{old('job_type') == 'Volunteer' ? 'selected' : ''}}>Volunteer</option>
-                    <option value="On-Call" {{old('job_type') == 'On-Call' ? 'selected' : ''}}>On-Call</option>
-                </select>
-                @error('job_type')
-                    <p class="text-red-500 text-sm mt-1">{{$message}}</p>
-                @enderror
-            </div>
+            <x-inputs.select
+                id="job_type"
+                name="job_type"
+                label="Job Type"
+                value="{{ old('job_type') }}"
+                :options="[
+                    'Full-Time' => 'Full-Time',
+                    'Part-Time' => 'Part-Time',
+                    'Contract' => 'Contract',
+                    'Temporary' => 'Temporary',
+                    'Internship' => 'Internship',
+                    'Volunteer' => 'Volunteer',
+                    'On-Call' => 'On-Call'
+                ]"
+            />
 
-            <div class="mb-4">
-                <label class="block text-gray-700" for="remote"
-                    >Remote</label
-                >
-                <select
-                    id="remote"
-                    name="remote"
-                    class="w-full px-4 py-2 border rounded focus:outline-none"
-                >
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
-                </select>
-            </div>
+            <x-inputs.select id="remote" name="remote" label="Remote" :options="[0 => 'No', 1 => 'Yes']" />
 
             <x-inputs.text id="address" name="address" label="Address" placeholder="123 Main St" />
 
@@ -76,6 +53,7 @@
 
             <x-inputs.text id="zipcode" name="zipcode" label="Zipcode" placeholder="12201" />
 
+            {{-- Company Info --}}
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">Company Info</h2>
 
             <x-inputs.text id="company_name" name="company_name" label="Company Name" placeholder="Enter company name" />
