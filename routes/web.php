@@ -35,4 +35,5 @@ Route::put('/profile', [ProfileController::class, 'update'])->name('profile.upda
 // Bookmark routes
 Route::middleware('auth')->group(function () {
     Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
+    Route::post('/bookmarks/{job}', [BookmarkController::class, 'store'])->name('bookmarks.store');
 });
