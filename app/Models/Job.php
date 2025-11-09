@@ -53,4 +53,10 @@ class Job extends Model
     {
         return $this->hasMany(Applicant::class);
     }
+
+    // Check if the job has an applicant by id
+    public function hasApplicant($id)
+    {
+        return $this->applicants()->where('user_id', $id)->exists();
+    }
 }
