@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Applicant;
 use App\Models\Job;
+use App\Mail\JobApplied;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicantController extends Controller
 {
@@ -45,6 +47,9 @@ class ApplicantController extends Controller
         $application->job_id = $job->id;
         $application->user_id = $user->id;
         $application->save();
+
+        // Send email to job owner
+        Mail::to($job->user->email)->send(new JobApplied($application, $job));
 
         return redirect()->back()->with('success', 'Your application was submitted successfully');
     }
