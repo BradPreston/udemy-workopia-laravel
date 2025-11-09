@@ -11,12 +11,13 @@ class DashboardController extends Controller
 {
     // @desc Show all users job listings
     // @route GET /dashboard
-    public function index(): View {
+    public function index(): View
+    {
         // Get logged in user
         $user = Auth::user();
 
         // Get the user listings
-        $job_listings = Job::where('user_id', $user->id)->get();
+        $job_listings = Job::where('user_id', $user->id)->with('applicants')->get();
 
         return view('dashboard.index', compact('user', 'job_listings'));
     }
