@@ -15,3 +15,13 @@
 [x-cloak] {
     display: none !important;
 }
+
+#applicant-form {
+    position: relative;
+    z-index: 5;
+}
+
+#map {
+    height: 500px;
+    z-index: 1;
+ }

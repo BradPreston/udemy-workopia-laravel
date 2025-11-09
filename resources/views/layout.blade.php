@@ -1,34 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$title ?? 'Workopia - Find and list jobs'}}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{{ $title ?? 'Workopia - Find and list jobs' }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @vite('resources/css/app.css')
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <script src="//unpkg.com/alpinejs" defer></script>
+    @stack(section: 'external.stylesheets')
 </head>
+
 <body class="bg-grey-100">
     <x-header />
-    @if(request()->is('/'))
+    @if (request()->is('/'))
         <x-hero />
         <x-top-banner />
     @endif
     <main class="container mx-auto p-4 mt-4">
         {{-- Start display alert messages --}}
-        @if(session('success'))
+        @if (session('success'))
             <x-alert type="success" message="{{ session('success') }}" />
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             <x-alert type="error" message="{{ session('error') }}" />
         @endif
         {{-- End display alert messages --}}
 
-        {{$slot}}
+        {{ $slot }}
     </main>
-    <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    @stack('body.scripts')
 </body>
+
 </html>
